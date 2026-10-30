@@ -51,6 +51,7 @@ def create_engine(settings: Settings, *, pooled: bool = True) -> AsyncEngine:
         return create_async_engine(url, poolclass=NullPool, connect_args=connect_args)
     return create_async_engine(
         url,
+        isolation_level="AUTOCOMMIT",
         pool_size=settings.database_pool_size,
         max_overflow=settings.database_max_overflow,
         pool_timeout=settings.database_pool_timeout_seconds,
