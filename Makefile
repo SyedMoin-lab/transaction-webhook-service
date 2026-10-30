@@ -18,7 +18,7 @@ run: migrate
 	poetry run python -m app
 
 worker:
-	poetry run python -m app.worker
+	poetry run python -m app.workers
 
 lint:
 	poetry run ruff check .

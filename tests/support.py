@@ -7,10 +7,10 @@ from typing import Any
 from fastapi import FastAPI
 from httpx import ASGITransport, AsyncClient
 
-from app.config import Settings
+from app.core.config import Settings
 from app.main import create_app
-from app.processor import TransactionProcessor
-from app.repository import TransactionRecord
+from app.repositories.transactions import TransactionRecord
+from app.services.processor import TransactionProcessor
 
 TEST_DATABASE_URL = os.environ.get(
     "TEST_DATABASE_URL",

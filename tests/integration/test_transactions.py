@@ -3,7 +3,7 @@ from datetime import datetime
 import pytest
 from httpx import AsyncClient
 
-from app.repository import TransactionRecord, TransactionRepository
+from app.repositories.transactions import TransactionRecord, TransactionRepository
 from tests.support import WEBHOOK_PATH, build_settings, running_app, wait_until, webhook_payload
 
 pytestmark = [pytest.mark.integration, pytest.mark.usefixtures("engine")]

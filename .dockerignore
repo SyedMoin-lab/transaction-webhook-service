@@ -14,7 +14,7 @@ coverage.xml
 htmlcov
 tests
 scripts
-docker
+docker/postgres
 docker-compose.yml
 Makefile
 render.yaml

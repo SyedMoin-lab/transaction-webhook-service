@@ -8,8 +8,8 @@ from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.ext.asyncio import AsyncEngine
 from sqlalchemy.sql.dml import ReturningUpdate
 
-from app.models import Transaction, TransactionStatus
-from app.schemas import TransactionWebhook
+from app.db.models import Transaction, TransactionStatus
+from app.schemas.transactions import TransactionWebhook
 
 ERROR_MESSAGE_MAX_LENGTH = 2000
 

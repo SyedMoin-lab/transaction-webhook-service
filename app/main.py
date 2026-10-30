@@ -4,16 +4,16 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from app.api.errors import register_exception_handlers
+from app.api.dependencies import ServiceContainer
+from app.api.exception_handlers import register_exception_handlers
 from app.api.middleware import RequestContextMiddleware
-from app.api.routes import health, transactions, webhooks
-from app.config import Settings, get_settings
-from app.container import ServiceContainer
-from app.db import create_engine
-from app.logging_config import configure_logging
-from app.processor import TransactionProcessor
-from app.repository import TransactionRepository
-from app.worker import TransactionWorker
+from app.api.router import api_router
+from app.core.config import Settings, get_settings
+from app.core.logging import configure_logging
+from app.db.engine import create_engine
+from app.repositories.transactions import TransactionRepository
+from app.services.processor import TransactionProcessor
+from app.workers.transaction_worker import TransactionWorker
 
 logger = logging.getLogger(__name__)
 
@@ -75,7 +75,5 @@ def create_app(
     app.add_middleware(RequestContextMiddleware)
     register_exception_handlers(app)
 
-    app.include_router(health.router)
-    app.include_router(webhooks.router)
-    app.include_router(transactions.router)
+    app.include_router(api_router)
     return app

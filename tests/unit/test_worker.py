@@ -5,10 +5,10 @@ from typing import cast
 
 import pytest
 
-from app import worker as worker_module
-from app.models import TransactionStatus
-from app.repository import TransactionRecord, TransactionRepository
-from app.worker import TransactionWorker
+from app.db.models import TransactionStatus
+from app.repositories.transactions import TransactionRecord, TransactionRepository
+from app.workers import transaction_worker as worker_module
+from app.workers.transaction_worker import TransactionWorker
 from tests.support import RecordingProcessor, wait_until
 
 

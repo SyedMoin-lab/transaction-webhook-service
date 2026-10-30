@@ -3,7 +3,7 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from app.config import Settings
+from app.core.config import Settings
 from tests.support import UNREACHABLE_DATABASE_URL, build_settings, running_app
 
 pytestmark = pytest.mark.integration

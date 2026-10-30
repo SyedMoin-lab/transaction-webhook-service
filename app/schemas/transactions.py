@@ -1,4 +1,3 @@
-from datetime import UTC, datetime
 from decimal import Decimal
 from typing import Annotated, Literal
 
@@ -11,25 +10,8 @@ from pydantic import (
     field_validator,
 )
 
-from app.models import (
-    AMOUNT_PRECISION,
-    AMOUNT_SCALE,
-    CURRENCY_CODE_LENGTH,
-    IDENTIFIER_MAX_LENGTH,
-    TransactionStatus,
-)
-
-UTC_TIMESTAMP_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
-
-
-def utc_now() -> datetime:
-    return datetime.now(UTC)
-
-
-def format_utc_timestamp(value: datetime) -> str:
-    if value.tzinfo is None:
-        value = value.replace(tzinfo=UTC)
-    return value.astimezone(UTC).strftime(UTC_TIMESTAMP_FORMAT)
+from app.db.models import AMOUNT_PRECISION, AMOUNT_SCALE, CURRENCY_CODE_LENGTH, TransactionStatus
+from app.schemas.common import Identifier, UtcTimestamp
 
 
 def serialize_amount(value: Decimal) -> int | float:
@@ -38,11 +20,6 @@ def serialize_amount(value: Decimal) -> int | float:
     return float(value)
 
 
-Identifier = Annotated[
-    str,
-    StringConstraints(strip_whitespace=True, min_length=1, max_length=IDENTIFIER_MAX_LENGTH),
-]
-UtcTimestamp = Annotated[datetime, PlainSerializer(format_utc_timestamp, return_type=str)]
 AmountValue = Annotated[
     Decimal,
     PlainSerializer(serialize_amount, return_type=int | float, when_used="json"),
@@ -97,12 +74,3 @@ class TransactionResponse(BaseModel):
     status: TransactionStatus
     created_at: UtcTimestamp
     processed_at: UtcTimestamp | None
-
-
-class HealthResponse(BaseModel):
-    status: Literal["HEALTHY", "UNHEALTHY"]
-    current_time: UtcTimestamp
-
-
-class ErrorResponse(BaseModel):
-    detail: str

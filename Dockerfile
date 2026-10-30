@@ -31,7 +31,8 @@ RUN groupadd --system --gid 10001 app \
 WORKDIR /app
 
 COPY --from=builder --chown=app:app /app/.venv /app/.venv
-COPY --chown=app:app alembic.ini docker-entrypoint.sh ./
+COPY --chown=app:app alembic.ini ./
+COPY --chown=app:app docker/entrypoint.sh ./docker/entrypoint.sh
 COPY --chown=app:app migrations ./migrations
 COPY --chown=app:app app ./app
 
@@ -42,5 +43,5 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
     CMD python -c "import os, urllib.request; urllib.request.urlopen('http://127.0.0.1:' + os.environ.get('PORT', '8000') + '/', timeout=4)" || exit 1
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
+ENTRYPOINT ["./docker/entrypoint.sh"]
 CMD ["python", "-m", "app"]

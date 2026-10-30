@@ -1,10 +1,22 @@
 import hashlib
 import hmac
+from dataclasses import dataclass
 from typing import Annotated
 
 from fastapi import Depends, HTTPException, Request, status
+from sqlalchemy.ext.asyncio import AsyncEngine
 
-from app.container import ServiceContainer
+from app.core.config import Settings
+from app.repositories.transactions import TransactionRepository
+from app.workers.transaction_worker import TransactionWorker
+
+
+@dataclass(frozen=True, slots=True)
+class ServiceContainer:
+    settings: Settings
+    engine: AsyncEngine
+    repository: TransactionRepository
+    worker: TransactionWorker | None
 
 
 def get_container(request: Request) -> ServiceContainer:

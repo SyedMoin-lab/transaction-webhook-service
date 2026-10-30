@@ -1,7 +1,7 @@
 import asyncio
 from typing import Protocol
 
-from app.repository import TransactionRecord
+from app.repositories.transactions import TransactionRecord
 
 
 class TransactionProcessor(Protocol):

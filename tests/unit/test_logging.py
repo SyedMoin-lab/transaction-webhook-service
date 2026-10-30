@@ -2,7 +2,7 @@ import json
 import logging
 import sys
 
-from app.logging_config import HANDLER_NAME, JsonFormatter, TextFormatter, configure_logging
+from app.core.logging import HANDLER_NAME, JsonFormatter, TextFormatter, configure_logging
 from tests.support import build_settings
 
 

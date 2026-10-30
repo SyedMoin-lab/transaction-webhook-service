@@ -3,8 +3,8 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from app.config import Settings
-from app.db import ASYNC_DRIVER, build_connection_options
+from app.core.config import Settings
+from app.db.engine import ASYNC_DRIVER, build_connection_options
 from tests.support import build_settings
 
 

@@ -70,7 +70,7 @@ poetry run python scripts/smoke_test.py --base-url http://localhost:8000
 - If the database is unreachable, the webhook returns `503`, so the payment processor retries instead of the transaction being dropped.
 - Neon hosts the database and Render hosts the service, on an always-on instance so that the 500 ms limit holds and the worker keeps running.
 
-The worker runs inside the API process by default. To scale them separately, set `WORKER_ENABLED=false` on the API and run `python -m app.worker` as its own process.
+The worker runs inside the API process by default. To scale them separately, set `WORKER_ENABLED=false` on the API and run `python -m app.workers` as its own process.
 
 ## Configuration
 

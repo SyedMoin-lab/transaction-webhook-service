@@ -4,9 +4,9 @@ from alembic import context
 from sqlalchemy import text
 from sqlalchemy.engine import Connection
 
-from app.config import Settings
-from app.db import build_connection_options, create_engine
-from app.models import Base
+from app.core.config import Settings
+from app.db.engine import build_connection_options, create_engine
+from app.db.models import Base
 
 MIGRATION_LOCK_KEY = 7_265_031_942
 

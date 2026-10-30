@@ -2,15 +2,12 @@ import asyncio
 import contextlib
 import logging
 import random
-import signal
 from collections.abc import Awaitable, Callable
 from typing import Any
 
-from app.config import Settings, get_settings
-from app.db import create_engine
-from app.logging_config import configure_logging
-from app.processor import SimulatedExternalProcessor, TransactionProcessor
-from app.repository import TransactionRecord, TransactionRepository
+from app.core.config import Settings
+from app.repositories.transactions import TransactionRecord, TransactionRepository
+from app.services.processor import SimulatedExternalProcessor, TransactionProcessor
 
 logger = logging.getLogger(__name__)
 
@@ -255,24 +252,3 @@ class TransactionWorker:
     @staticmethod
     def _log_context(record: TransactionRecord) -> dict[str, Any]:
         return {"transaction_id": record.transaction_id, "attempt": record.attempts}
-
-
-async def run_standalone_worker(settings: Settings | None = None) -> None:
-    settings = settings or get_settings()
-    configure_logging(settings)
-    engine = create_engine(settings)
-    worker = TransactionWorker.from_settings(settings, TransactionRepository(engine))
-    shutdown = asyncio.Event()
-    loop = asyncio.get_running_loop()
-    for signum in (signal.SIGINT, signal.SIGTERM):
-        loop.add_signal_handler(signum, shutdown.set)
-    try:
-        await worker.start()
-        await shutdown.wait()
-    finally:
-        await worker.stop()
-        await engine.dispose()
-
-
-if __name__ == "__main__":
-    asyncio.run(run_standalone_worker())

@@ -5,11 +5,11 @@ from datetime import UTC, datetime
 import pytest
 from sqlalchemy.ext.asyncio import AsyncEngine
 
-from app.models import TransactionStatus
-from app.processor import SimulatedExternalProcessor, TransactionProcessor
-from app.repository import TransactionRecord, TransactionRepository
-from app.schemas import TransactionWebhook
-from app.worker import TransactionWorker
+from app.db.models import TransactionStatus
+from app.repositories.transactions import TransactionRecord, TransactionRepository
+from app.schemas.transactions import TransactionWebhook
+from app.services.processor import SimulatedExternalProcessor, TransactionProcessor
+from app.workers.transaction_worker import TransactionWorker
 from tests.support import (
     WEBHOOK_PATH,
     BlockingProcessor,

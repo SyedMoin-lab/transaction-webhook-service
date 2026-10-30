@@ -11,9 +11,9 @@ from pathlib import Path
 import httpx
 import pytest
 
-from app.models import TransactionStatus
-from app.repository import TransactionRepository
-from app.schemas import TransactionWebhook
+from app.db.models import TransactionStatus
+from app.repositories.transactions import TransactionRepository
+from app.schemas.transactions import TransactionWebhook
 from tests.support import TEST_DATABASE_URL, WEBHOOK_PATH, wait_until, webhook_payload
 
 pytestmark = pytest.mark.integration
@@ -94,7 +94,7 @@ async def test_standalone_worker_processes_transactions_and_stops_on_sigterm(
         record = await repository.get("txn_standalone")
         return record is not None and record.status == TransactionStatus.PROCESSED
 
-    async with spawn("app.worker", service_environment()) as lines:
+    async with spawn("app.workers", service_environment()) as lines:
         await wait_until(processed, within=15)
 
     messages = log_messages(lines)

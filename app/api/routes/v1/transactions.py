@@ -3,10 +3,11 @@ from typing import Annotated
 from fastapi import APIRouter, HTTPException, Path, status
 
 from app.api.dependencies import ContainerDep
-from app.models import IDENTIFIER_MAX_LENGTH
-from app.schemas import ErrorResponse, TransactionResponse
+from app.db.models import IDENTIFIER_MAX_LENGTH
+from app.schemas.common import ErrorResponse
+from app.schemas.transactions import TransactionResponse
 
-router = APIRouter(prefix="/v1/transactions", tags=["transactions"])
+router = APIRouter(prefix="/transactions", tags=["transactions"])
 
 
 @router.get(

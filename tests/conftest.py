@@ -7,9 +7,9 @@ from alembic.config import Config
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncEngine
 
-from app.config import Settings
-from app.db import create_engine
-from app.repository import TransactionRepository
+from app.core.config import Settings
+from app.db.engine import create_engine
+from app.repositories.transactions import TransactionRepository
 from tests.support import build_settings
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]

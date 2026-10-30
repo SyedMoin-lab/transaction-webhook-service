@@ -5,7 +5,7 @@ from sqlalchemy import URL, make_url, text
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from sqlalchemy.pool import NullPool
 
-from app.config import Settings
+from app.core.config import Settings
 
 ASYNC_DRIVER = "postgresql+asyncpg"
 POSTGRES_DRIVER_ALIASES = frozenset(

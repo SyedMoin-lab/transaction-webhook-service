@@ -5,8 +5,9 @@ from fastapi import APIRouter, Response, status
 from sqlalchemy.ext.asyncio import AsyncEngine
 
 from app.api.dependencies import ContainerDep
-from app.db import ping
-from app.schemas import HealthResponse, utc_now
+from app.db.engine import ping
+from app.schemas.common import utc_now
+from app.schemas.health import HealthResponse
 
 logger = logging.getLogger(__name__)
 

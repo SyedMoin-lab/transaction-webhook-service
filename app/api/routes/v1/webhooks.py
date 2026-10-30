@@ -4,11 +4,12 @@ import logging
 from fastapi import APIRouter, Depends, status
 
 from app.api.dependencies import ContainerDep, verify_webhook_signature
-from app.schemas import ErrorResponse, TransactionWebhook, WebhookAcknowledgement
+from app.schemas.common import ErrorResponse
+from app.schemas.transactions import TransactionWebhook, WebhookAcknowledgement
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/v1/webhooks", tags=["webhooks"])
+router = APIRouter(prefix="/webhooks", tags=["webhooks"])
 
 
 @router.post(

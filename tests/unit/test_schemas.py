@@ -5,14 +5,10 @@ from typing import Any
 import pytest
 from pydantic import ValidationError
 
-from app.models import TransactionStatus
-from app.schemas import (
-    HealthResponse,
-    TransactionResponse,
-    TransactionWebhook,
-    format_utc_timestamp,
-    serialize_amount,
-)
+from app.db.models import TransactionStatus
+from app.schemas.common import format_utc_timestamp
+from app.schemas.health import HealthResponse
+from app.schemas.transactions import TransactionResponse, TransactionWebhook, serialize_amount
 from tests.support import webhook_payload
 
 

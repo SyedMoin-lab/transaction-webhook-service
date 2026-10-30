@@ -9,9 +9,9 @@ import pytest
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncEngine
 
-from app.config import Settings
-from app.models import Transaction
-from app.repository import TransactionRepository
+from app.core.config import Settings
+from app.db.models import Transaction
+from app.repositories.transactions import TransactionRepository
 from tests.support import (
     UNREACHABLE_DATABASE_URL,
     WEBHOOK_PATH,
