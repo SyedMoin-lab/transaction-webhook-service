@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: transaction-webhook-service
+    runtime: docker
+    plan: starter
+    region: virginia
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: ENVIRONMENT
+        value: production
+      - key: LOG_JSON
+        value: "true"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PROCESSING_DELAY_SECONDS
+        value: "30"
+      - key: WORKER_ENABLED
+        value: "true"
+      - key: RUN_MIGRATIONS
+        value: "true"
+      - key: WEBHOOK_SECRET
+        sync: false
