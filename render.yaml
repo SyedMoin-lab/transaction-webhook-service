@@ -22,5 +22,3 @@ services:
         value: "true"
       - key: RUN_MIGRATIONS
         value: "true"
-      - key: WEBHOOK_SECRET
-        sync: false
