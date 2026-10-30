@@ -2,7 +2,7 @@
 
 Receives transaction webhooks from payment processors, acknowledges them right away with `202 Accepted`, and processes each transaction once in the background.
 
-Live API: `https://<deployment-url>` (docs at `/docs`)
+Live API: https://transaction-webhook-service-b29c.onrender.com (interactive docs at [/docs](https://transaction-webhook-service-b29c.onrender.com/docs))
 
 ## Endpoints
 
